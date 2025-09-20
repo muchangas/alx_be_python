@@ -1,7 +1,12 @@
-number = int(input("Enter a number to see its multiplication table: "))
+size = int(input("Enter the size of the pattern: "))
 
-for i in range(1, 11):
+row = 0
+while row < size:
+   
+    for col in range(size):
+        
+        print("*", end="")
     
-    product = number * i
-    
-    print(f"{number} * {i} = {product}")
+    print()
+  
+    row += 1
