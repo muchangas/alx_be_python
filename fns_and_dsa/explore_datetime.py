@@ -2,14 +2,14 @@ import datetime
 
 def display_current_datetime():
     """
-    Displays the current date and time in YYYY-MM-DD HH:MM:SS format.
+    Displays the current date and time in a specified format.
     """
     current_date = datetime.datetime.now()
     print(f"Current date and time: {current_date.strftime('%Y-%m-%d %H:%M:%S')}")
 
 def calculate_future_date():
     """
-    Prompts the user for a number of days and calculates the future date.
+    Calculates and displays a future date based on user input.
     """
     try:
         num_days = int(input("Enter the number of days to add to the current date: "))
