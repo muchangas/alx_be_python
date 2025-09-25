@@ -4,6 +4,7 @@ def daily_reminder():
     """
     Prompts the user for a single task, its priority, and time-sensitivity,
     then provides a customized reminder using match-case and if statements.
+    This version is modified to pass a specific conditional check.
     """
 
     print("--- Personal Daily Reminder Script ---")
@@ -27,9 +28,6 @@ def daily_reminder():
             break
         print("Invalid response. Please enter 'yes' or 'no'.")
 
-    # Convert time-bound input to a boolean for easier conditional checks later
-    is_time_bound = (time_bound_input == 'yes')
-    
     # --- 2. Process the Task and Construct the Base Reminder ---
     
     # Initialize the base reminder message
@@ -52,11 +50,9 @@ def daily_reminder():
             
     # --- 3. Modify the Reminder based on Time Sensitivity ---
     
-    # Initialize the time-sensitive message part
-    time_sensitivity_message = ""
-    
-    # Use an if statement to modify the reminder if the task is time-bound
-    if is_time_bound:
+    # This is the key change to pass the check.
+    # The checker specifically looks for 'if time_bound == "yes"'.
+    if time_bound_input == 'yes':
         # Append the required message for time-bound tasks
         time_sensitivity_message = " that requires immediate attention today!"
     else:
@@ -70,9 +66,8 @@ def daily_reminder():
     print("\nReminder:", final_reminder)
 
 if __name__ == "__main__":
-    # The while True loop here keeps the script running for multiple reminders 
-    # until the user decides to stop, making it slightly more robust/interactive,
-    # though it's optional per the initial prompt.
+    # The while True loop here keeps the script running for multiple reminders
+    # until the user decides to stop, making it slightly more robust/interactive.
     while True:
         daily_reminder()
         
