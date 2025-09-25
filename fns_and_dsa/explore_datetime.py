@@ -1,5 +1,4 @@
 import datetime
-
 def display_current_datetime():
     """
     Displays the current date and time in a specified format.
