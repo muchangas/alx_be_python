@@ -27,7 +27,7 @@ File: test_simple_calculator.py
 Description: Unit tests for the SimpleCalculator class using the unittest module.
 """
 import unittest
-from test_simple_calculator import SimpleCalculator
+from simple_calculator import SimpleCalculator
 
 class TestSimpleCalculator(unittest.TestCase):
     """
