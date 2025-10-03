@@ -64,46 +64,49 @@ class TestSimpleCalculator(unittest.TestCase):
 
     # --- Tests for subtract() ---
 
-    def test_subtraction_integers(self):
-        """Test subtraction with positive, negative, and mixed integers."""
+        def test_subtraction(self)
+            """Teat the subtraction of positive, negative, mixed and zero numbers"""
+        # Test 1: Basic positive integers
         self.assertEqual(self.calc.subtract(10, 4), 6)
+        
+        # Test 2: Result is negative
         self.assertEqual(self.calc.subtract(4, 10), -6)
+        
+        # Test 3: Subtraction of two negative numbers
         self.assertEqual(self.calc.subtract(-5, -2), -3) # -5 - (-2) = -3
-
-    def test_subtraction_with_zero(self):
-        """Test subtraction involving zero."""
+        
+        # Test 4: Subtraction involving zero
         self.assertEqual(self.calc.subtract(10, 0), 10)
         self.assertEqual(self.calc.subtract(0, 10), -10)
+        
+        # Test 5: Float subtraction
+        self.assertAlmostEqual(self.calc.subtract(3.5, 1.2), 2.3)
 
     # --- Tests for multiply() ---
 
-    def test_multiplication_positive_numbers(self):
+    def test_multiplication(self):
         """Test multiplication with positive integers."""
         self.assertEqual(self.calc.multiply(6, 7), 42)
 
-    def test_multiplication_negative_mixed(self):
         """Test multiplication with negative numbers and mixed signs."""
         self.assertEqual(self.calc.multiply(-5, 5), -25)
         self.assertEqual(self.calc.multiply(-5, -5), 25)
 
-    def test_multiplication_with_zero(self):
         """Test multiplication involving zero (should always return 0)."""
         self.assertEqual(self.calc.multiply(100, 0), 0)
 
     # --- Tests for divide() ---
 
-    def test_division_normal(self):
+    def test_division(self):
         """Test normal division resulting in an integer or float."""
         self.assertEqual(self.calc.divide(10, 5), 2.0)
         self.assertEqual(self.calc.divide(10, 4), 2.5)
 
-    def test_division_by_zero_edge_case(self):
         """Test division by zero, which should return None as per the function contract."""
         self.assertIsNone(self.calc.divide(10, 0))
         self.assertIsNone(self.calc.divide(-10, 0))
         self.assertIsNone(self.calc.divide(0, 0)) # 0/0 also returns None
 
-    def test_division_zero_numerator(self):
         """Test division where the numerator is zero."""
         self.assertEqual(self.calc.divide(0, 5), 0.0)
 
