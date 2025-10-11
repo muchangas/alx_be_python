@@ -61,7 +61,7 @@ class TestSimpleCalculator(unittest.TestCase):
         
         # Test 5: Addition involving zero
         self.assertEqual(self.calc.add(0, 7), 7)
-
+       
     # --- Tests for subtract() ---
 
         def test_subtraction(self)
