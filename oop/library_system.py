@@ -2,15 +2,15 @@
 class Book:
     """
     The base class for all books in the library.
-    It holds common attributes like title and author.
+    It includes the standard __str__ method for representation.
     """
     def __init__(self, title, author):
         """Initializes a Book instance."""
         self.title = title
         self.author = author
 
-    def get_details(self):
-        """Returns the basic details of the book."""
+    def __str__(self):
+        """Returns the user-friendly string representation of the Book."""
         return f"Book: {self.title} by {self.author}"
 
 # --- Inheritance: Derived Classes ---
@@ -18,54 +18,43 @@ class Book:
 class EBook(Book):
     """
     Represents an electronic book, inheriting from Book.
-    Adds a unique attribute for file size.
     """
     def __init__(self, title, author, file_size):
-        """
-        Initializes an EBook instance.
-        Calls the parent class constructor using super().
-        """
-        # Call the base class constructor
+        """Initializes an EBook instance."""
         super().__init__(title, author)
         self.file_size = file_size
 
-    def get_details(self):
+    def __str__(self):
         """
-        Overrides the base class method to include EBook-specific details.
+        Overrides the base __str__ method to include EBook-specific details.
         """
-        # Get base details and append EBook details
-        base_details = super().get_details().replace("Book", "EBook")
-        return f"{base_details}, File Size: {self.file_size}KB"
+        # Call the base __str__ to get common details, then replace "Book" with "EBook"
+        base_str = super().__str__().replace("Book", "EBook")
+        return f"{base_str}, File Size: {self.file_size}KB"
 
 
 class PrintBook(Book):
     """
     Represents a physical printed book, inheriting from Book.
-    Adds a unique attribute for page count.
     """
     def __init__(self, title, author, page_count):
-        """
-        Initializes a PrintBook instance.
-        Calls the parent class constructor using super().
-        """
-        # Call the base class constructor
+        """Initializes a PrintBook instance."""
         super().__init__(title, author)
         self.page_count = page_count
 
-    def get_details(self):
+    def __str__(self):
         """
-        Overrides the base class method to include PrintBook-specific details.
+        Overrides the base __str__ method to include PrintBook-specific details.
         """
-        # Get base details and append PrintBook details
-        base_details = super().get_details().replace("Book", "PrintBook")
-        return f"{base_details}, Page Count: {self.page_count}"
+        # Call the base __str__ to get common details, then replace "Book" with "PrintBook"
+        base_str = super().__str__().replace("Book", "PrintBook")
+        return f"{base_str}, Page Count: {self.page_count}"
 
 
 # --- Composition: Library Class ---
 class Library:
     """
     A class that manages a collection of books, demonstrating composition.
-    It "has-a" list of Book objects (Book, EBook, PrintBook).
     """
     def __init__(self):
         """Initializes a Library with an empty list of books."""
@@ -79,9 +68,12 @@ class Library:
             print(f"Error: {book} is not a valid book type.")
 
     def list_books(self):
-        """Prints the details of every book in the library."""
+        """
+        Prints the details of every book in the library.
+        This now implicitly calls the __str__ method on each book object.
+        """
         for book in self.books:
-            print(book.get_details())
+            print(book)
 
 from library_system import Book, EBook, PrintBook, Library
 
