@@ -1,78 +1,81 @@
 # daily_reminder.py
 
+def get_valid_input(prompt, valid_options):
+    """
+    Prompts the user for input and ensures the input is one of the valid options.
+    Returns the validated, lower-cased input.
+    """
+    while True:
+        user_input = input(prompt).strip().lower()
+        if user_input in valid_options:
+            return user_input
+        else:
+            # Provide feedback and retry
+            print(f"Invalid input. Please enter one of: {', '.join(valid_options)}")
+
 def daily_reminder():
     """
-    Prompts the user for a single task, its priority, and time-sensitivity,
-    then provides a customized reminder using match-case and if statements.
-    This version is modified to pass a specific conditional check.
+    Prompts the user for a single task's details and provides a customized reminder.
     """
+    print("--- Daily Task Reminder Setup ---")
 
-    print("--- Personal Daily Reminder Script ---")
+    # 1. Prompt for a Single Task
+    task_description = input("Enter your task: ").strip()
 
-    # --- 1. Prompt for a Single Task ---
+    # Get and validate the priority
+    priority_options = ['high', 'medium', 'low']
+    task_priority = get_valid_input(
+        f"Priority ({'/'.join(priority_options)}): ", 
+        priority_options
+    )
     
-    # Task Description
-    task = input("Enter your task: ").strip()
+    # Get and validate the time-bound status
+    time_bound_options = ['yes', 'no']
+    time_bound = get_valid_input(
+        f"Is it time-bound? ({'/'.join(time_bound_options)}): ", 
+        time_bound_options
+    )
 
-    # Task Priority (with simple input validation loop)
-    while True:
-        priority = input("Priority (high/medium/low): ").strip().lower()
-        if priority in ('high', 'medium', 'low'):
-            break
-        print("Invalid priority. Please enter 'high', 'medium', or 'low'.")
+    # Base reminder message setup
+    base_message = f"'{task_description}' is a {task_priority} priority task"
     
-    # Time Sensitivity (with simple input validation loop)
-    while True:
-        time_bound_input = input("Is it time-bound? (yes/no): ").strip().lower()
-        if time_bound_input in ('yes', 'no'):
-            break
-        print("Invalid response. Please enter 'yes' or 'no'.")
-
-    # --- 2. Process the Task and Construct the Base Reminder ---
+    # 2. Process the Task Based on Priority and Time Sensitivity
     
-    # Initialize the base reminder message
-    base_message = f"'{task}' is a {priority} priority task"
-
-    # Use Match Case to react differently based on priority
-    match priority:
+    # Use Match Case for priority-based distinction (demonstrates control flow)
+    match task_priority:
         case 'high':
-            # High priority tasks often have the most demanding tone.
-            pass  # The default base message is already strong.
+            # High priority tasks often benefit from a more urgent tone
+            reminder_modifier = " and is **critical** to complete"
         case 'medium':
-            # Medium priority tasks might get a slightly milder emphasis.
-            base_message += ", and should be worked on soon"
+            reminder_modifier = " that should be addressed soon"
         case 'low':
-            # Low priority tasks can be framed as flexible.
-            base_message += ", which can be handled when time permits"
+            reminder_modifier = " that can be done at your leisure"
+        # The 'low' case handles all other possibilities due to input validation, 
+        # but a default case is good practice in a general match
         case _:
-            # Fallback, though the loop prevents this case from being reached
-            base_message += ", with an unknown priority level"
+            reminder_modifier = " with an unclassified priority" 
             
-    # --- 3. Modify the Reminder based on Time Sensitivity ---
-    
-    # This is the key change to pass the check.
-    # The checker specifically looks for 'if time_bound == "yes"'.
-    if time_bound_input == 'yes':
-        # Append the required message for time-bound tasks
-        time_sensitivity_message = " that requires immediate attention today!"
-    else:
-        # Append a concluding statement for non-time-bound tasks
-        time_sensitivity_message = "."
+    # Combine base message and priority modifier
+    final_reminder = base_message + reminder_modifier
 
-    # --- 4. Provide a Customized Reminder ---
-    
-    final_reminder = base_message + time_sensitivity_message
-    
-    print("\nReminder:", final_reminder)
-
-if __name__ == "__main__":
-    # The while True loop here keeps the script running for multiple reminders
-    # until the user decides to stop, making it slightly more robust/interactive.
-    while True:
-        daily_reminder()
+    # Use an if statement to modify the reminder for time-bound tasks
+    # This directly addresses the 'that requires immediate attention today!' requirement
+    if time_bound == 'yes':
+        # Overrides or augments the existing message for time-sensitive tasks
+        time_sensitivity_message = " that requires **immediate attention today!**"
         
-        # Simple loop continuation check
-        another = input("\nDo you want to enter another reminder? (y/n): ").strip().lower()
-        if another != 'y':
-            print("Reminder session ended. Have a productive day! 👋")
-            break
+        # We'll use a simplified structure that replaces the existing modifier 
+        # to ensure the mandatory message is delivered clearly.
+        final_reminder = base_message + time_sensitivity_message
+    else:
+        # For non-time-bound tasks, we just ensure a period is at the end
+        final_reminder += "."
+
+    # 3. Provide a Customized Reminder
+    print("\n--- Reminder ---")
+    print(f"Reminder: {final_reminder}")
+    print("-" * 20)
+
+# Execute the main function
+if __name__ == "__main__":
+    daily_reminder()
